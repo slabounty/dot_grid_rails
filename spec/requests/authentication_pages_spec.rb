@@ -61,8 +61,19 @@ describe "Authentication" do
           click_button "Sign in"
         end
 
-        describe "after signing in" do
+        describe "in the Documents controller" do
+          describe "submitting to the create action" do
+            before { post documents_path }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
 
+          describe "submitting to the destroy action" do
+            before { delete document_path(FactoryGirl.create(:document)) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+        end
+
+        describe "after signing in" do
           it "should render the desired protected page" do
             expect(page).to have_title('Edit user')
           end

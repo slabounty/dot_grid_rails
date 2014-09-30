@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907014006) do
+ActiveRecord::Schema.define(version: 20140921010257) do
+
+  create_table "documents", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "file_name"
+    t.string   "orientation"
+    t.string   "page_type"
+    t.float    "dot_weight"
+    t.float    "margin"
+    t.string   "page_size"
+    t.string   "grid_color"
+    t.integer  "spacing"
+    t.string   "planner_color_1"
+    t.string   "planner_color_2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["user_id", "created_at"], name: "index_documents_on_user_id_and_created_at"
 
   create_table "users", force: true do |t|
     t.string   "name"
