@@ -2,7 +2,6 @@ class DocumentsController < ApplicationController
   before_action :signed_in_user
 
   def create
-    Rails.logger.error "document_params = #{document_params}"
     if params[:commit] == 'Save'
       @document = current_user.documents.build(document_params)
       if @document.save
@@ -12,9 +11,22 @@ class DocumentsController < ApplicationController
         render 'static_pages/home'
       end
     else
-      Rails.logger.error "Hit Generate!!!"
-      @document = Document.new(document_params)
-      render 'static_pages/home'
+      document = ::DotGrid::Document.new(
+        {
+          file_name: document_params[:file_name],
+          orientation: document_params[:orientation],
+          page_type: document_params[:page_type],
+          dot_weight: document_params[:dot_weight].to_f,
+          margin: document_params[:margin].to_f,
+          page_size: document_params[:page_size].upcase,
+          grid_color: document_params[:grid_color],
+          spacing: document_params[:spacing].to_i,
+          planner_color_1: document_params[:planner_color_1],
+          planner_color_2: document_params[:planner_color_2]
+        })
+      document.generate
+
+      send_file document.file_name, filename: document.file_name
     end
   end
 
