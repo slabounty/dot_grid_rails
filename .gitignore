@@ -15,5 +15,8 @@
 /log/*.log
 /tmp
 
+# Ignore pdf files
+*.pdf
+
 # Ignore coverage files
 coverage/
