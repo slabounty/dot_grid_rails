@@ -1,3 +1,11 @@
+<script>
+  $(document).ready(function() {
+    $(function(){
+      $('.colorpicker').colorpicker();
+    });
+  });
+</script>
+
 <%= form_for(@document) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
@@ -10,11 +18,13 @@
 
     <%= f.text_field :dot_weight, placeholder: "Dot weight ..." %>
     <%= f.text_field :margin, placeholder: "Margin..." %>
-    <%= f.text_field :grid_color, placeholder: "Grid color..." %>
     <%= f.text_field :spacing, placeholder: "Spacing ..." %>
-    <%= f.text_field :planner_color_1, placeholder: "Planner color 1..." %>
-    <%= f.text_field :planner_color_2, placeholder: "Planner color 2..." %>
+    <%#= f.text_field :grid_color, class: "colorpicker", value: "#00cc00" %>
+    <%= f.text_field :grid_color, class: "colorpicker", placeholder: "Grid color ..." %>
+    <%= f.text_field :planner_color_1, class: "colorpicker", placeholder: "Planner color 1..." %>
+    <%= f.text_field :planner_color_2, class: "colorpicker", placeholder: "Planner color 2..." %>
   </div>
   <%= f.submit "Save", class: "btn btn-large btn-primary" %>
   <%= f.submit "Generate", class: "btn btn-large btn-primary" %>
 <% end %>
+
