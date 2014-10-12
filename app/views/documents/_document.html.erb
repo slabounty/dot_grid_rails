@@ -1,5 +1,9 @@
 <li>
   <span class="name"><%= document.name %></span>
+  <%= link_to "edit", edit_document_path(document) %>
+  <%= link_to "generate", edit_document_path(document) %>
+  <%= link_to "delete", document, method: :delete,
+                                  data: { confirm: "You sure?" } %>
   <span class="timestamp">
     Created <%= time_ago_in_words(document.created_at) %> ago.
   </span>

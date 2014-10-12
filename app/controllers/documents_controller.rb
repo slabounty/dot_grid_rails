@@ -6,7 +6,8 @@ class DocumentsController < ApplicationController
       @document = current_user.documents.build(document_params)
       if @document.save
         flash[:success] = "Document created!"
-        redirect_to root_url
+        #redirect_to root_url
+        render 'static_pages/home'
       else
         render 'static_pages/home'
       end
@@ -30,7 +31,19 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def update
+  end
+
+  def edit
+    Rails.logger.error "\n\n\n params = #{params.inspect} \n\n\n"
+    @document = Document.find(params[:id])
+    render 'shared/_document_form'
+  end
+
   def destroy
+    Document.find(params[:id]).destroy
+    flash[:success] = "Document deleted."
+    redirect_to current_user
   end
 
   private

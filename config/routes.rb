@@ -1,7 +1,7 @@
 DotGridRails::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :documents, only: [:create, :destroy]
+  resources :documents, only: [:create, :destroy, :edit, :update]
 
   root  'static_pages#home'
 
