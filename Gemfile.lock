@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/slabounty/bootstrap-colorpicker2-rails
-  revision: db79bdeeae034c83a982693b6d06aee02906bd0c
-  specs:
-    bootstrap-colorpicker2-rails (0.0.1)
-      railties (~> 4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,6 +27,8 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     bcrypt-ruby (3.1.2)
+    bootstrap-colorpicker2-rails (0.0.1)
+      railties (~> 4.0)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
@@ -188,7 +183,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
-  bootstrap-colorpicker2-rails!
+  bootstrap-colorpicker2-rails (~> 0.0.1)
   bootstrap-sass (= 2.3.2.0)
   bootstrap-will_paginate (= 0.0.9)
   capybara (= 2.1.0)

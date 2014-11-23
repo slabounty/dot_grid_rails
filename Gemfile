@@ -10,7 +10,7 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
 gem 'dot_grid'
-gem 'bootstrap-colorpicker2-rails', :git => 'https://github.com/slabounty/bootstrap-colorpicker2-rails'
+gem 'bootstrap-colorpicker2-rails', '~> 0.0.1'
 
 
 group :development, :test do
