@@ -35,7 +35,7 @@ describe "Authentication" do
       end
 
       it { should have_title(user.name) }
-      it { should have_link('Users',       href: users_path) }
+      it { should_not have_link('Users',   href: users_path) }
       it { should have_link('Profile',     href: user_path(user)) }
       it { should have_link('Settings',    href: edit_user_path(user)) }
       it { should have_link('Sign out',    href: signout_path) }
@@ -45,6 +45,16 @@ describe "Authentication" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
       end
+    end
+
+    describe "as an admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+
+      before do
+        sign_in admin
+      end
+
+      it { should have_link('Users', href: users_path) }
     end
   end
 
