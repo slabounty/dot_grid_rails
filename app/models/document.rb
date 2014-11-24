@@ -15,7 +15,7 @@ class Document < ActiveRecord::Base
   validates :planner_color_2, presence: true
 
   PAGE_ORIENTATION = %w[Portrait Landscape]
-  PAGE_SIZE = %w[Legal Letter 
+  PAGE_SIZE = %w[Letter Legal
     A0 A1 A2 A4 A5 A6 A7
     B0 B1 B2 B4 B5 B6 B7
   ]
