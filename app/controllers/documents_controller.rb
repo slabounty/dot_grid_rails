@@ -4,7 +4,6 @@ class DocumentsController < ApplicationController
   def create
     respond_to do |format|
       format.js do
-        Rails.logger.error "\n\n\n DocumentsController#create Format JS. \n\n\n"
         if params[:commit] == 'Save'
           @document = current_user.documents.build(document_params)
           if @document.save
@@ -22,7 +21,6 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    Rails.logger.error "\n\n\n DocumentsController#update params = #{params.inspect} \n\n\n"
     @document = Document.find(params[:id])
 
     respond_to do |format|
@@ -56,7 +54,6 @@ class DocumentsController < ApplicationController
   end
 
   def generate_and_send
-    Rails.logger.error "\n\n\n DocumentsController#generate_and_send params = #{params.inspect} \n\n\n"
     document = ::DotGrid::Document.new(
       {
         file_name: document_params[:file_name],
@@ -71,11 +68,9 @@ class DocumentsController < ApplicationController
         planner_color_2: document_params[:planner_color_2]
       })
 
-    Rails.logger.error "\n\n\n DocumentsController#generate_and_send generating file. \n\n\n"
     cookies['fileDownload'] = 'true'
     document.generate
 
-    Rails.logger.error "\n\n\n DocumentsController#generate_and_send sending file. \n\n\n"
     send_file document.file_name, filename: document.file_name, x_sendfile: true
   end
 

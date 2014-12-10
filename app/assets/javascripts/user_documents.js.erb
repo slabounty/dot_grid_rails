@@ -25,7 +25,8 @@ $(document).ready(function() {
     e.preventDefault();
     $.fileDownload('/documents/generate_and_send', {
       httpMethod: "POST",
-      data: $('#new_document').serialize()
+      data: $('#new_document').serialize(),
+      contentType: 'js'
     });
   });
 });
