@@ -2,6 +2,7 @@ DotGridRails::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :documents, only: [:create, :destroy, :edit, :update]
+  post '/documents/generate_and_send', to: 'documents#generate_and_send'
 
   root  'static_pages#home'
 

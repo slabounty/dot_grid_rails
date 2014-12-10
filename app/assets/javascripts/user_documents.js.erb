@@ -1,0 +1,31 @@
+$(document).ready(function() {
+
+  // Here???
+  UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds
+
+  $('.colorpicker').colorpicker();
+
+  $(".documents li").on("click", function(){
+    document_id = $(this).attr('id').match(/\d+/)[0];
+
+    $.ajax({
+      url: "/documents/" + document_id + "/edit",
+      type: 'GET',
+      //dataType: 'script',
+      success: function(data){
+        console.log('Success in getting edit!');
+      },
+      failure: function(data){
+        console.log('Failure in getting edit!');
+      }
+    });
+  });
+
+  $('#document_generate').on('click', function(e){
+    e.preventDefault();
+    $.fileDownload('/documents/generate_and_send', {
+      httpMethod: "POST",
+      data: $('#new_document').serialize()
+    });
+  });
+});

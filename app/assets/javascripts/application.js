@@ -16,3 +16,6 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-colorpicker
+//= require unobtrusive_flash
+//= require unobtrusive_flash_bootstrap
+//= require jquery.fileDownload
