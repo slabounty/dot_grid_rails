@@ -19,12 +19,15 @@ gem 'bootstrap-colorpicker2-rails', '~> 0.0.1'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.13.1'
+  #gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails', '3.0'
+  gem 'rspec-its'
 end
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.1.0'
+  #gem 'capybara', '2.1.0'
+  gem 'capybara', '2.4'
   gem 'factory_girl_rails', '4.2.0'
 end
 

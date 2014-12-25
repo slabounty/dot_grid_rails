@@ -21,11 +21,10 @@ class DocumentsController < ApplicationController
   end
 
   def update
-    @document = Document.find(params[:id])
-
     respond_to do |format|
       format.js do
         if params[:commit] == 'Save'
+          @document = Document.find(params[:id])
           if @document.update(document_params)
             flash[:success] = "Document updated."
             render 'edit'
@@ -33,9 +32,10 @@ class DocumentsController < ApplicationController
             flash[:success] = "Document update failed."
             render 'edit'
           end
-        else
-          generate_and_send
         end
+      end
+      format.html do
+        generate_and_send
       end
     end
   end

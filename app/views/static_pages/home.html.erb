@@ -5,7 +5,9 @@
         <%= render 'shared/user_documents' %>
       </section>
       <section class="span8">
-        <%= render partial: 'shared/document_form', locals: { document: @document} %>
+        <div id='document_form'>
+          <%= render partial: 'shared/document_form', locals: { document: @document} %>
+        </div>
       </section>
     </aside>
   </div>
