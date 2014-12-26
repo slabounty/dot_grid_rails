@@ -1,0 +1,5 @@
+<% if current_user.documents.any? %>
+  <ol class="documents">
+    <%= render @documents %>
+  </ol>
+<% end %>

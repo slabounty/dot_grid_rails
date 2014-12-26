@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-    @document = current_user.documents.build if signed_in?
+    @documents = current_user.documents if signed_in?
+    @document = Document.new if signed_in?
   end
 
   def help

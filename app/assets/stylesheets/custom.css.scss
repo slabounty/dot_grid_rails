@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "bootstrap-colorpicker";
+@import "font-awesome";
 
 /* mixins, variables, etc. */
 
@@ -195,13 +196,19 @@ input {
 
 /* documents */
 
+
 .documents {
   list-style: none;
   margin: 10px 0 0 0;
 
+  .odd {
+    background-color: #D7EEF5;
+  }
+
   li {
-    padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
+    padding: 10px 10px;
+    /*border-top: 1px solid #e8e8e8;*/
+    border: 1px solid #e8e8e8;
   }
 }
 

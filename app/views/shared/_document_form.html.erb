@@ -1,30 +1,20 @@
-<script>
-  $(document).ready(function() {
-    $(function(){
-      $('.colorpicker').colorpicker();
-    });
-  });
-</script>
-
-<%= form_for(@document) do |f| %>
+<%= form_for(document, remote: true, authenticity_token: true, format: :js) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :name, placeholder: "Name of document..." %>
     <%= f.text_field :file_name, placeholder: "Name of file...", value: "dot_grid.pdf" %>
 
-    <%= f.select :orientation, options_for_select(Document::PAGE_ORIENTATION) %>
-    <%= f.select :page_size, options_for_select(Document::PAGE_SIZE) %>
-    <%= f.select :page_type, options_for_select(Document::PAGE_TYPE) %>
+    <%= f.select :orientation, options_for_select(Document::PAGE_ORIENTATION, document.orientation) %>
+    <%= f.select :page_size, options_for_select(Document::PAGE_SIZE, document.page_size) %>
+    <%= f.select :page_type, options_for_select(Document::PAGE_TYPE, document.page_type) %>
 
     <%= f.text_field :dot_weight, placeholder: "Dot weight ..." %>
     <%= f.text_field :margin, placeholder: "Margin..." %>
     <%= f.text_field :spacing, placeholder: "Spacing ..." %>
-    <%#= f.text_field :grid_color, class: "colorpicker", value: "#00cc00" %>
     <%= f.text_field :grid_color, class: "colorpicker", placeholder: "Grid color ..." %>
     <%= f.text_field :planner_color_1, class: "colorpicker", placeholder: "Planner color 1..." %>
     <%= f.text_field :planner_color_2, class: "colorpicker", placeholder: "Planner color 2..." %>
   </div>
-  <%= f.submit "Save", class: "btn btn-large btn-primary" %>
-  <%= f.submit "Generate", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Save", class: "btn btn-large btn-primary", id: "document_save" %>
+  <%= f.submit "Generate", class: "btn btn-large btn-primary" ,id: "document_generate" %>
 <% end %>
-
