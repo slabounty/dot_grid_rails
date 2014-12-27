@@ -58,7 +58,7 @@ class DocumentsController < ApplicationController
       {
         file_name: document_params[:file_name],
         orientation: document_params[:orientation],
-        page_type: document_params[:page_type],
+        page_types: document_params[:page_type],
         dot_weight: document_params[:dot_weight].to_f,
         margin: document_params[:margin].to_f,
         page_size: document_params[:page_size].upcase,
