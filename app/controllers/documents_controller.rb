@@ -58,14 +58,14 @@ class DocumentsController < ApplicationController
       {
         file_name: document_params[:file_name],
         orientation: document_params[:orientation],
-        page_type: document_params[:page_type],
+        page_types: document_params[:page_type],
         dot_weight: document_params[:dot_weight].to_f,
         margin: document_params[:margin].to_f,
         page_size: document_params[:page_size].upcase,
-        grid_color: document_params[:grid_color],
+        grid_color: document_params[:grid_color].gsub(/^#/, ''),
         spacing: document_params[:spacing].to_i,
-        planner_color_1: document_params[:planner_color_1],
-        planner_color_2: document_params[:planner_color_2]
+        planner_color_1: document_params[:planner_color_1].gsub(/^#/, ''),
+        planner_color_2: document_params[:planner_color_2].gsub(/^#/, '')
       })
 
     cookies['fileDownload'] = 'true'

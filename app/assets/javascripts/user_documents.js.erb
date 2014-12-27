@@ -8,6 +8,12 @@ $(document).ready(function() {
   $(".documents li").on("click", function(){
     document_id = $(this).attr('id').match(/\d+/)[0];
 
+    // Remove selected from all documents.
+    $(".documents li").removeClass("selected");
+
+    // Add the selected class to the selected document.
+    $(this).addClass("selected")
+
     $.ajax({
       url: "/documents/" + document_id + "/edit",
       type: 'GET',
