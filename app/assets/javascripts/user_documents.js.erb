@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   // Here???
-  UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds
+  // UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds
 
   $('.colorpicker').colorpicker();
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
   $('#document_form').on('click', '#document_generate', function(e){
     e.preventDefault();
-    $.fileDownload('/documents/generate_and_send', {
+    $.fileDownload('/documents/generate_and_send.js', {
       httpMethod: "POST",
       data: $('#document_form form').serialize()
     });

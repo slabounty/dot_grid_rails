@@ -1,8 +1,13 @@
 DotGridRails::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :documents, only: [:create, :destroy, :edit, :update]
-  post '/documents/generate_and_send', to: 'documents#generate_and_send'
+  post '/documents/generate_and_send', to: 'documents#generate_and_send', :constraints => {:format => /js/}
+  post '/documents/update', to: 'documents#update', :constraints => {:format => /js/}
+  resources :documents, only: [:create, :destroy, :edit] do
+    member do
+      post :update
+    end
+  end
 
   root  'static_pages#home'
 

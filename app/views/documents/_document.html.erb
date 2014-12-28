@@ -1,7 +1,7 @@
 <li id=document_<%="#{document.id}" %> class="<%= cycle("odd", "even")%>">
   <%= content_tag :div  do %>
     <span class="name"><%= document.name %></span>
-    <%= link_to fa_icon("trash-o"), document, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to fa_icon("trash-o"), document, method: :delete, data: { confirm: 'Are you sure?' }, id: "trash_#{document.id}" %>
 
     <span class="timestamp">
       Created <%= time_ago_in_words(document.created_at) %> ago.

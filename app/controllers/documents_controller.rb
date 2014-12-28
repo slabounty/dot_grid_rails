@@ -10,11 +10,9 @@ class DocumentsController < ApplicationController
             flash[:success] = "Document created!"
             render 'edit'
           else
-            flash[:success] = "Could not create document."
+            flash[:error] = "Could not create document."
             render 'edit'
           end
-        else
-          generate_and_send
         end
       end
     end
@@ -29,13 +27,13 @@ class DocumentsController < ApplicationController
             flash[:success] = "Document updated."
             render 'edit'
           else
-            flash[:success] = "Document update failed."
+            flash[:error] = "Document update failed."
             render 'edit'
           end
+        #else
+          #Rails.logger.error("\n\n\n update generate_and_send \n\n\n")
+          #generate_and_send
         end
-      end
-      format.html do
-        generate_and_send
       end
     end
   end
@@ -54,24 +52,33 @@ class DocumentsController < ApplicationController
   end
 
   def generate_and_send
-    document = ::DotGrid::Document.new(
-      {
-        file_name: document_params[:file_name],
-        orientation: document_params[:orientation],
-        page_types: document_params[:page_type],
-        dot_weight: document_params[:dot_weight].to_f,
-        margin: document_params[:margin].to_f,
-        page_size: document_params[:page_size].upcase,
-        grid_color: document_params[:grid_color].gsub(/^#/, ''),
-        spacing: document_params[:spacing].to_i,
-        planner_color_1: document_params[:planner_color_1].gsub(/^#/, ''),
-        planner_color_2: document_params[:planner_color_2].gsub(/^#/, '')
-      })
+    if Document.new(document_params).valid?
+      document = ::DotGrid::Document.new(
+        {
+          file_name: document_params[:file_name],
+          orientation: document_params[:orientation],
+          page_types: document_params[:page_type],
+          dot_weight: document_params[:dot_weight].to_f,
+          margin: document_params[:margin].to_f,
+          page_size: document_params[:page_size].upcase,
+          grid_color: document_params[:grid_color].gsub(/^#/, ''),
+          spacing: document_params[:spacing].to_i,
+          planner_color_1: document_params[:planner_color_1].gsub(/^#/, ''),
+          planner_color_2: document_params[:planner_color_2].gsub(/^#/, '')
+        })
 
-    cookies['fileDownload'] = 'true'
-    document.generate
+      cookies['fileDownload'] = 'true'
+      document.generate
 
-    send_file document.file_name, filename: document.file_name, x_sendfile: true
+      send_file document.file_name, filename: document.file_name, x_sendfile: true
+    else
+      respond_to do |format|
+        format.js do
+          flash[:error] = "Could not generate document."
+          head 400, content_type: "text/html"
+        end
+      end
+    end
   end
 
   private
