@@ -7,18 +7,20 @@ $(document).ready(function() {
 
   $(".documents li").on("click", function(){
     document_id = $(this).attr('id').match(/\d+/)[0];
-
-    // Remove selected from all documents.
-    $(".documents li").removeClass("selected");
-
-    // Add the selected class to the selected document.
-    $(this).addClass("selected")
+    selected_document = $(this);
 
     $.ajax({
       url: "/documents/" + document_id + "/edit",
       type: 'GET',
       success: function(data){
         $('.colorpicker').colorpicker();
+
+        // Remove selected from all documents.
+        $(".documents li").removeClass("selected");
+
+        // Add the selected class to the selected document.
+        // $(this).addClass("selected")
+        selected_document.addClass("selected")
       },
       failure: function(data){
         console.log('Failure in getting edit!');
