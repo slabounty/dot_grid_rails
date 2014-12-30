@@ -72,15 +72,17 @@ describe "Document pages" do
           fill_in('document_spacing', with: 20)
           fill_in('document_name', with: "New Name")
           click_button('Save')
+          sleep(10)
           expect(page).to have_content("Document updated.")
           expect(document.reload.name).to eq("New Name")
         end
       end
 
       describe "with invalid information" do
-        it "should change the document" do
+        it "should not change the document" do
           fill_in('document_name', with: "")
           click_button('Save')
+          sleep(10)
           expect(page).to have_content("Document update failed.")
         end
       end
