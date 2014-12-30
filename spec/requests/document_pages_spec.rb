@@ -42,15 +42,29 @@ describe "Document pages" do
     end
   end
 
-  describe "document edit" do
+  describe "document edit", :js => true do
+    let(:user) { FactoryGirl.create(:user) }
     let!(:document) { FactoryGirl.create(:document, user: user, name: "My Name", page_size: "A5") }
 
+    before { sign_in user }
+
     describe "as correct user" do
-      before { visit root_path }
+      before do 
+        visit root_path
+        find("#document_#{document.id}", :text => 'My Name').click
+      end
 
       it "should show the document" do
-        find("#document_#{document.id}", :text => 'My Name').click
-        expect(page).to have_content('A5')
+        expect(page).to have_selector("li.selected")
+        expect(find("#document_name").value).to eq('My Name')
+      end
+
+      it "should change the document" do
+        fill_in('document_spacing', with: 20)
+        fill_in('document_name', with: "New Name")
+        click_button('Save')
+        expect(page).to have_content("Document updated.")
+        expect(document.reload.name).to eq("New Name")
       end
     end
   end

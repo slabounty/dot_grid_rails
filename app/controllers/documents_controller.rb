@@ -30,9 +30,6 @@ class DocumentsController < ApplicationController
             flash[:error] = "Document update failed."
             render 'edit'
           end
-        #else
-          #Rails.logger.error("\n\n\n update generate_and_send \n\n\n")
-          #generate_and_send
         end
       end
     end
