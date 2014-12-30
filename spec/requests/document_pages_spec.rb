@@ -7,7 +7,7 @@ describe "Document pages" do
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }
 
-  describe "document creation" do
+  describe "document creation", :js => true do
     before { visit root_path }
 
     describe "with invalid information" do
@@ -37,7 +37,15 @@ describe "Document pages" do
       end
 
       it "should create a document" do
-        expect { click_button "Save" }.to change(Document, :count).by(1)
+        document_count = Document.count
+        click_button "Save"
+        expect(page).to have_content("Document created!")
+        expect(Document.count).to eq(document_count + 1)
+      end
+
+      it "should generate a document" do
+        click_button "Generate"
+        expect(page.status_code).to eq(200)
       end
     end
   end
