@@ -1,4 +1,4 @@
-<%= form_for(document, remote: true, authenticity_token: true, format: :js) do |f| %>
+<%= form_for(document, remote: true, authenticity_token: true, method: :post, format: :js) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :name, placeholder: "Name of document..." %>

@@ -7,7 +7,7 @@ describe "Document pages" do
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }
 
-  describe "document creation" do
+  describe "document creation", :js => true do
     before { visit root_path }
 
     describe "with invalid information" do
@@ -37,7 +37,64 @@ describe "Document pages" do
       end
 
       it "should create a document" do
-        expect { click_button "Save" }.to change(Document, :count).by(1)
+        document_count = Document.count
+        click_button "Save"
+        expect(page).to have_content("Document created!")
+        expect(Document.count).to eq(document_count + 1)
+      end
+
+      it "should generate a document" do
+        click_button "Generate"
+        expect(page.status_code).to eq(200)
+      end
+    end
+  end
+
+  describe "document edit", :js => true do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:document) { FactoryGirl.create(:document, user: user, name: "My Name", page_size: "A5") }
+
+    before { sign_in user }
+
+    describe "as correct user" do
+      before do 
+        visit root_path
+        find("#document_#{document.id}", :text => 'My Name').click
+      end
+
+      it "should show the document" do
+        expect(page).to have_selector("li.selected")
+        expect(find("#document_name").value).to eq('My Name')
+      end
+
+      #describe "with valid information" do
+        #it "should change the document" do
+          #fill_in('document_spacing', with: 20)
+          #fill_in('document_name', with: "New Name")
+          #click_button('Save')
+          #expect(page).to have_content("Document updated.")
+          #expect(document.reload.name).to eq("New Name")
+        #end
+      #end
+
+      #describe "with invalid information" do
+        #it "should not change the document" do
+          #fill_in('document_name', with: "")
+          #click_button('Save')
+          #expect(page).to have_content("Document update failed.")
+        #end
+      #end
+    end
+  end
+
+  describe "document deletion" do
+    let!(:document) { FactoryGirl.create(:document, user: user) }
+
+    describe "as correct user" do
+      before { visit root_path }
+
+      it "should delete a document" do
+        expect { click_link "trash_#{document.id}" }.to change(Document, :count).by(-1)
       end
     end
   end
