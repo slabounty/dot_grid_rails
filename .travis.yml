@@ -4,7 +4,8 @@ cache: bundler
 rvm:
   - 2.0.0
 
-script: 'bundle exec rake'
+script:
+  - xvfb-run --server-args="-screen 0 1024x768x24" bundle exec rake
 
 notifications:
   email:
