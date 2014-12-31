@@ -7,6 +7,28 @@ describe "Document pages" do
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }
 
+  describe "document display", :js => true do
+
+    before { visit root_path }
+
+    context "when the user has no documents" do
+      it "tells the user to create documents" do
+        expect(page).to have_content("Make some documents!!")
+      end
+    end
+
+    context "when the user has documents" do
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:document) { FactoryGirl.create(:document, user: user, name: "My Name", page_size: "A5") }
+
+      before { visit root_path }
+
+      it "shows the documents" do
+        expect(page).to have_content("My Name")
+      end
+    end
+  end
+
   describe "document creation", :js => true do
     before { visit root_path }
 

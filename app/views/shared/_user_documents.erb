@@ -2,4 +2,6 @@
   <ol class="documents">
     <%= render @documents %>
   </ol>
+<% else %>
+  <%= render partial: 'shared/no_documents' %>
 <% end %>
