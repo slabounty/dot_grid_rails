@@ -78,11 +78,11 @@ describe "Document pages" do
       #end
 
       #describe "with invalid information" do
-        #it "should not change the document" do
-          #fill_in('document_name', with: "")
-          #click_button('Save')
-          #expect(page).to have_content("Document update failed.")
-        #end
+        it "should not change the document" do
+          fill_in('document_name', with: "")
+          click_button('Save')
+          expect(page).to have_content("Document update failed.")
+        end
       #end
     end
   end
