@@ -28,6 +28,7 @@ group :test do
   gem 'factory_girl_rails', '4.2.0'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'launchy'
 end
 
 gem 'sass-rails', '4.0.1'
