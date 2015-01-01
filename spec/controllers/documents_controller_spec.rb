@@ -1,6 +1,39 @@
 require 'spec_helper'
 
 describe DocumentsController do
+  describe "POST update" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:document) { FactoryGirl.create(:document) }
+
+    before do
+      sign_in(user, no_capybara: true)
+      allow(Document).to receive(:find).and_return(document)
+    end
+
+    context "when the document can be updated" do
+      it "updates the document" do
+        expect(document).to receive(:update)
+        post :update, {format: :js, commit: 'Save', document: document.attributes }
+      end
+
+      it "sets the flash error message" do
+        post :update, {format: :js, commit: 'Save', document: document.attributes }
+        expect(flash[:success]).to eq('Document updated.')
+      end
+    end
+
+    context "when the document can not be updated" do
+      before do
+        allow(document).to receive(:update).and_return(false)
+      end
+
+      it "sets the flash error message" do
+        post :update, {format: :js, commit: 'Save', document: document.attributes }
+        expect(flash[:error]).to eq('Document update failed.')
+      end
+    end
+  end
+
   describe "POST generate_and_send" do
     let(:user) { FactoryGirl.create(:user) }
     let(:document) { FactoryGirl.build(:document) }
