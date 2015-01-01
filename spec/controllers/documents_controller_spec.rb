@@ -34,6 +34,21 @@ describe DocumentsController do
     end
   end
 
+  describe "POST edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:document) { FactoryGirl.create(:document) }
+
+    before do
+      sign_in(user, no_capybara: true)
+      allow(Document).to receive(:find).and_return(document)
+    end
+
+    it "finds the document" do
+      expect(Document).to receive(:find).and_return(document)
+      post :edit, {format: :js, id: document.id }
+    end
+  end
+
   describe "POST generate_and_send" do
     let(:user) { FactoryGirl.create(:user) }
     let(:document) { FactoryGirl.build(:document) }
