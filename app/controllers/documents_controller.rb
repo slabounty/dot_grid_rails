@@ -50,6 +50,7 @@ class DocumentsController < ApplicationController
 
   def generate_and_send
     if Document.new(document_params).valid?
+
       document = ::DotGrid::Document.new(
         {
           file_name: document_params[:file_name],

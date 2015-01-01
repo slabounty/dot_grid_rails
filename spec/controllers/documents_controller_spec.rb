@@ -14,20 +14,37 @@ describe DocumentsController do
       allow(::DotGrid::Document).to receive(:new).and_return(dot_grid_document)
     end
 
-    it "creates a new document" do
-      expect(Document).to receive(:new).and_return(document)
-      post :generate_and_send, { document: document.attributes }
+    context "when there are valid parameters" do
+      it "creates a new document" do
+        expect(Document).to receive(:new).and_return(document)
+        post :generate_and_send, { format: :js, document: document.attributes }
+      end
+
+      it "generates a document" do
+        expect(dot_grid_document).to receive(:generate)
+        post :generate_and_send, { format: :js, document: document.attributes }
+      end
+
+      it "downloads the document" do
+        expect(controller).to receive(:send_file).with("My Filename", hash_including(filename: "My Filename"))
+        post :generate_and_send, { format: :js, document: document.attributes }
+      end
     end
 
-    it "generates a document" do
-      expect(dot_grid_document).to receive(:generate)
-      post :generate_and_send, { document: document.attributes }
-    end
+    context "when the parameters are invalid" do
+      before do
+        allow(Document).to receive(:new).and_return(double(valid?: false).as_null_object)
+      end
 
-    it "downloads the document" do
-      expect(controller).to receive(:send_file).with("My Filename", hash_including(filename: "My Filename"))
-      post :generate_and_send, { document: document.attributes }
-    end
+      it "sets the flash error message" do
+        post :generate_and_send, {format: :js, document: document.attributes }
+        expect(flash[:error]).to eq('Could not generate document.')
+      end
 
+      it "returns a 400" do
+        post :generate_and_send, {format: :js, document: document.attributes }
+        expect(response.status).to eq(400)
+      end
+    end
   end
 end
