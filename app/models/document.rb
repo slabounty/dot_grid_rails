@@ -9,10 +9,7 @@ class Document < ActiveRecord::Base
   validates :dot_weight, presence: true, numericality: { greater_than: 0.0 }
   validates :margin, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :page_size, presence: true
-  validates :grid_color, presence: true
   validates :spacing, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :planner_color_1, presence: true
-  validates :planner_color_2, presence: true
 
   PAGE_ORIENTATION = %w[Portrait Landscape]
   PAGE_SIZE = %w[Letter Legal
@@ -24,4 +21,8 @@ class Document < ActiveRecord::Base
     planner checkerboard grid dot_grid 
     horizontal_rule grid_plus_lines dot_dash
   ]
+
+  def planner_page?
+    page_type == 'planner'
+  end
 end

@@ -80,11 +80,6 @@ describe Document do
     it { should_not be_valid }
   end
 
-  describe "with blank grid_color" do
-    before { document.grid_color = " " }
-    it { should_not be_valid }
-  end
-
   describe "with blank spacing" do
     before { document.spacing = nil }
     it { should_not be_valid }
@@ -97,16 +92,6 @@ describe Document do
 
   describe "with negative spacing" do
     before { document.spacing = -1 }
-    it { should_not be_valid }
-  end
-
-  describe "with blank planner_color_1" do
-    before { document.planner_color_1 = " " }
-    it { should_not be_valid }
-  end
-
-  describe "with blank planner_color_2" do
-    before { document.planner_color_2 = " " }
     it { should_not be_valid }
   end
 end

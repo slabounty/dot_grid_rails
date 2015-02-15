@@ -1,3 +1,10 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    // HACK? Do we really want to do this here?
+    showPageParameters();
+  });
+</script>
+
 <%= form_for(document, remote: true, authenticity_token: true, method: :post, format: :js) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
@@ -11,9 +18,9 @@
     <%= f.text_field :dot_weight, placeholder: "Dot weight ..." %>
     <%= f.text_field :margin, placeholder: "Margin..." %>
     <%= f.text_field :spacing, placeholder: "Spacing ..." %>
-    <%= f.text_field :grid_color, class: "colorpicker", placeholder: "Grid color ..." %>
-    <%= f.text_field :planner_color_1, class: "colorpicker", placeholder: "Planner color 1..." %>
-    <%= f.text_field :planner_color_2, class: "colorpicker", placeholder: "Planner color 2..." %>
+    <%= f.text_field :grid_color, class: "colorpicker", placeholder: "Grid color (default #B3B3B3) ..." %>
+    <%= f.text_field :planner_color_1, class: "colorpicker", placeholder: "Planner color 1 (default #0099ff) ..." %>
+    <%= f.text_field :planner_color_2, class: "colorpicker", placeholder: "Planner color 2 #(default #CCCCCC) ..." %>
   </div>
   <%= f.submit "Save", class: "btn btn-large btn-primary", id: "document_save" %>
   <%= f.submit "Generate", class: "btn btn-large btn-primary" ,id: "document_generate" %>
