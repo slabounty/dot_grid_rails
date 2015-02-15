@@ -52,7 +52,6 @@ describe "Document pages" do
         select  'Letter', from: 'document_page_size'
         fill_in 'document_dot_weight', with: "0.5"
         fill_in 'document_margin', with: "0"
-        fill_in 'document_grid_color', with: "00ff00"
         fill_in 'document_spacing', with: "5"
         fill_in 'document_planner_color_1', with: "00ff00"
         fill_in 'document_planner_color_2', with: "00ff00"

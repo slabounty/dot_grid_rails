@@ -1,11 +1,25 @@
+function showPageParameters() {
+  if ($('#document_form #document_page_type').val() == 'planner'){
+    $('#document_form #document_grid_color').hide();
+    $('#document_form #document_planner_color_1').show();
+    $('#document_form #document_planner_color_2').show();
+  } else{
+    $('#document_form #document_grid_color').show();
+    $('#document_form #document_planner_color_1').hide();
+    $('#document_form #document_planner_color_2').hide();
+  }
+}
+
 $(document).ready(function() {
 
   // Here???
-  // UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds
+  UnobtrusiveFlash.flashOptions['timeout'] = 2000; // milliseconds
+
+  showPageParameters();
 
   $('.colorpicker').colorpicker();
 
-  $(".documents li").on("click", function(){
+  $(".documents li").on("click", function() {
     document_id = $(this).attr('id').match(/\d+/)[0];
     selected_document = $(this);
 
@@ -21,6 +35,9 @@ $(document).ready(function() {
         // Add the selected class to the selected document.
         // $(this).addClass("selected")
         selected_document.addClass("selected")
+
+        // Show the appropriate parameters
+        showPageParameters();
       },
       failure: function(data){
         console.log('Failure in getting edit!');
@@ -34,5 +51,9 @@ $(document).ready(function() {
       httpMethod: "POST",
       data: $('#document_form form').serialize()
     });
+  });
+
+  $('#document_form').on('change', '#document_page_type', function(e) {
+    showPageParameters();
   });
 });
