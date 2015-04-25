@@ -8,7 +8,7 @@ gem 'bcrypt-ruby', '~>3.1.2'
 gem 'faker', '~>1.1'
 gem 'will_paginate', '~>3.0.4'
 gem 'bootstrap-will_paginate', '~>0.0.9'
-gem "font-awesome-rails", '~>4.2'
+gem "font-awesome-rails"
 gem 'unobtrusive_flash', '>=3'
 gem 'jquery_file_download-rails', '~> 0.0.1'
 
